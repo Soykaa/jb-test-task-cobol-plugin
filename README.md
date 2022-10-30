@@ -31,10 +31,9 @@ The following code fragment is being processed correctly:
 For details see _SimpleCobol.bnf_ & _SimpleCobol.flex!_
 
 ## Run plugin
+0. Generate parser and lexer (very sorry!)
 1. Run `./gradlew runIde`
 2. Create a _test.scbl_ file with the content above
 3. You are great! Now you can even build a tree via PsiViewer.
-
-__Note__: at the moment there are, unfortunately, no tests (time is the horrible thing!)
 
 __Note__: such file extension was chosen because this is not COBOL actually :)
