@@ -1,0 +1,16 @@
+<idea-plugin>
+    <id>org.intellij.sdk.language</id>
+    <name>SDK: Simple Cobol Language Sample</name>
+<!--    <depends>com.intellij.modules.platform</depends>-->
+<!--    <depends>com.intellij.java</depends>-->
+    <vendor url="https://plugins.jetbrains.com">IntelliJ Platform SDK</vendor>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="Simple Cobol File"
+                  implementationClass="org.intellij.sdk.language.SimpleCobolFileType"
+                  fieldName="INSTANCE"
+                  language="SimpleCobol"
+                  extensions="cbl"/>
+        <lang.parserDefinition language="SimpleCobol"
+                               implementationClass="org.intellij.sdk.language.SimpleCobolParserDefinition"/>
+    </extensions>
+</idea-plugin>
