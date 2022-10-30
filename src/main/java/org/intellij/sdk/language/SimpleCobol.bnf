@@ -13,19 +13,41 @@
 
 cobolFile ::= simple-cobol-source-program*
 
-simple-cobol-source-program ::= IDENTIFICATION WS+ DIVISION DOT WS*DEL? program-id-cobol-source-program
-                                        [DATA WS+ DIVISION DOT WS*DEL? data-division-content]
+simple-cobol-source-program ::= LINE IDENTIFICATION DIVISION DOT DEL? program-id-cobol-source-program
+                                [LINE DATA DIVISION DOT DEL? data-division-content]
+                                [LINE procedure-division]
+                                DEL*
 
 //=========================== IDENTIFICATION ===========================
-program-id-cobol-source-program  ::= PROGRAM_ID [DOT] WS*DEL? USER_DEFINED_WORD [DOT] WS*DEL?
+program-id-cobol-source-program  ::= LINE PROGRAM_ID [DOT] USER_DEFINED_WORD [DOT] DEL?
 
 //=========================== DIVISION ===========================
-data-division-content ::= [WORKING_STORAGE WS+ SECTION DOT WS*DEL? {data-description-entry}* WS*DEL?]
+data-division-content ::= [LINE WORKING_STORAGE SECTION DOT DEL? {data-description-entry}* DEL?]
 
-data-description-entry ::= LEVEL_NUMBER WS+ [USER_DEFINED_WORD] data-description-entry-clauses DOT
+data-description-entry ::= LINE LEVEL_NUMBER [USER_DEFINED_WORD] data-description-entry-clauses DOT
 
-data-description-entry-clauses ::= WS+ picture-clause+ {WS+ data-value-clause}*
-picture-clause ::= PIC WS+ (DATATYPE)+
-data-value-clause ::= VALUE WS+ literal
+data-description-entry-clauses ::= picture-clause+ {data-value-clause}*
+picture-clause    ::= PIC picture-string
+picture-string    ::= (PICCHAR+ REPEAT?)+
+data-value-clause ::= VALUE NUMERIC
+
+//=========================== PROCEDURE ===========================
+procedure-division ::= PROCEDURE DIVISION DOT sections
+sections ::= {sentence}*{DEL? paragraph}*
+
+sentence ::= statement-list DOT
+paragraph ::= LINE USER_DEFINED_WORD DOT {sentence}*
+
+statement-list ::= {DEL? statement}+
+statement ::= (display-statement | perform-statement | stop-run-statement)
+
+stop-run-statement ::= LINE STOP RUN
+
+display-statement ::= LINE DISPLAY {(identifier | literal)}+
+identifier  ::= USER_DEFINED_WORD
 literal  ::=  (NUMERIC | FIGURATIVE_CONSTANT)
 
+perform-statement ::= LINE PERFORM USER_DEFINED_WORD perform-varying-phrase
+basis ::= (identifier | literal)
+perform-varying-phrase ::= VARYING identifier FROM basis BY basis UNTIL condition
+condition ::= basis EQUAL basis
