@@ -1,0 +1,31 @@
+{
+  parserClass="org.intellij.sdk.language.parser.SimpleCobolParser"
+  parserUtilClass="org.intellij.sdk.language.parser.SimpleCobolParserUtil"
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+  psiClassPrefix="SimpleCobol"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.intellij.sdk.language.psi"
+  psiImplPackage="org.intellij.sdk.language.psi.impl"
+  elementTypeHolderClass="org.intellij.sdk.language.psi.SimpleCobolTypes"
+  elementTypeClass="org.intellij.sdk.language.psi.SimpleCobolElementType"
+  tokenTypeClass="org.intellij.sdk.language.psi.SimpleCobolTokenType"
+}
+
+cobolFile ::= simple-cobol-source-program*
+
+simple-cobol-source-program ::= IDENTIFICATION WS+ DIVISION DOT WS*DEL? program-id-cobol-source-program
+                                        [DATA WS+ DIVISION DOT WS*DEL? data-division-content]
+
+//=========================== IDENTIFICATION ===========================
+program-id-cobol-source-program  ::= PROGRAM_ID [DOT] WS*DEL? USER_DEFINED_WORD [DOT] WS*DEL?
+
+//=========================== DIVISION ===========================
+data-division-content ::= [WORKING_STORAGE WS+ SECTION DOT WS*DEL? {data-description-entry}* WS*DEL?]
+
+data-description-entry ::= LEVEL_NUMBER WS+ [USER_DEFINED_WORD] data-description-entry-clauses DOT
+
+data-description-entry-clauses ::= WS+ picture-clause+ {WS+ data-value-clause}*
+picture-clause ::= PIC WS+ (DATATYPE)+
+data-value-clause ::= VALUE WS+ literal
+literal  ::=  (NUMERIC | FIGURATIVE_CONSTANT)
+

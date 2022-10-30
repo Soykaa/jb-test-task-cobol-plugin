@@ -9,7 +9,7 @@
                   implementationClass="org.intellij.sdk.language.SimpleCobolFileType"
                   fieldName="INSTANCE"
                   language="SimpleCobol"
-                  extensions="cbl"/>
+                  extensions="scbl"/>
         <lang.parserDefinition language="SimpleCobol"
                                implementationClass="org.intellij.sdk.language.SimpleCobolParserDefinition"/>
     </extensions>
