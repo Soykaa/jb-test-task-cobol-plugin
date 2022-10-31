@@ -35,6 +35,7 @@ For details see _SimpleCobol.bnf_ & _SimpleCobol.flex!_
 1. Run `./gradlew runIde`
 2. Create a _test.scbl_ file with the content above
 3. You are great! Now you can even build a tree via PsiViewer.
-3*. Tests for now has some problems connected with gradle and idk for now how to fix it (and time-time-time..), but PSI tree, built from that code snippet can be found in the test directory.
  
 __Note__: such file extension was chosen because it is not exactly COBOL :)
+
+__Note__: Tests for now has some problems connected with gradle and idk for now how to fix it, but PSI tree, built from that code snippet can be found in the test directory.
